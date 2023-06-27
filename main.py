@@ -127,19 +127,18 @@ class MiMotion():
                 }
             if "@" in user:
                 data2 = {
-                    "allow_registration=": "false",
+                    "allow_registration": "false",
                     "app_name": "com.xiaomi.hm.health",
-                    "app_version": "6.5.5",
+                    "app_version": "6.7.1",
                     "code": f"{code}",
                     "country_code": "CN",
-                    "device_id": "2C8B4939-0CCD-4E94-8CBA-CB8EA6E613A1",
-                    "device_model": "phone",
-                    "dn": "api-user.huami.com%2Capi-mifit.huami.com%2Capp-analytics.huami.com",
+                    "device_id": "677227be-26b4-4172-9429-e8267e6d79b9",
+                    "device_model": "android_phone",
+                    "dn": "account.zepp.com,api-user.zepp.com,api-mifit.zepp.com,api-watch.zepp.com,app-analytics.zepp.com,api-analytics.huami.com,auth.zepp.com",
                     "grant_type": "access_token",
-                    "lang": "zh_CN",
-                    "os_version": "1.5.0",
-                    "source": "com.xiaomi.hm.health",
-                    "third_name": "email",
+                    "lang": "zh",
+                    "source": "com.xiaomi.hm.health:6.7.1:50703",
+                    "third_name": "huami",
                 }
             r2 = requests.post(url=url2, data=data2, headers=headers).json()
             login_token = r2["token_info"]["login_token"]
