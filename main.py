@@ -86,7 +86,7 @@ class MiMotion():
 
     def get_app_token(self, login_token):
         try:
-            url = f"https://account-cn.huami.com/v1/client/app_tokens?app_name=com.xiaomi.hm.health&dn=api-user.huami.com%2Capi-mifit.huami.com%2Capp-analytics.huami.com&login_token={login_token}"
+            url = f"https://account-cn.zepp.com/v1/client/app_tokens?app_name=com.xiaomi.hm.health&dn=api-user.zepp.com%2Capi-mifit.zepp.com%2Capp-analytics.zepp.com&login_token={login_token}"
             response = requests.get(url=url, headers=self.headers).json()
             app_token = response["token_info"]["app_token"]
             return app_token
@@ -97,7 +97,7 @@ class MiMotion():
     @staticmethod
     def login(user, password):
         try:
-            url1 = f"https://api-user.huami.com/registrations/{user}/tokens"
+            url1 = f"https://api-user..com/registrations/{user}/tokens"
             headers = {
                 "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
                 "User-Agent": "MiFit/4.6.0 (iPhone; iOS 14.0.1; Scale/2.00)",
@@ -113,7 +113,7 @@ class MiMotion():
             location = r1.headers["Location"]
             code_pattern = re.compile("(?<=access=).*?(?=&)")
             code = code_pattern.findall(location)[0]
-            url2 = "https://account.huami.com/v2/client/login"        
+            url2 = "https://account.zepp.com/v2/client/login"        
             if "+86" in user:
                 data2 = {
                     "app_name": "com.xiaomi.hm.health",
@@ -127,19 +127,19 @@ class MiMotion():
                 }
             if "@" in user:
                 data2 = {
-                    "allow_registration=": "false",
+                    "allow_registration": "false",
                     "app_name": "com.xiaomi.hm.health",
-                    "app_version": "6.5.5",
+                    "app_version": "6.7.1",
                     "code": f"{code}",
                     "country_code": "CN",
-                    "device_id": "2C8B4939-0CCD-4E94-8CBA-CB8EA6E613A1",
-                    "device_model": "phone",
-                    "dn": "api-user.huami.com%2Capi-mifit.huami.com%2Capp-analytics.huami.com",
+                    "device_id": "677227be-26b4-4172-9429-e8267e6d79b9",
+                    "device_model": "android_phone",
+                    "dn": "account.zepp.com,api-user.zepp.com,api-mifit.zepp.com,api-watch.zepp.com,app-analytics.zepp.com,api-analytics.huami.com,auth.zepp.com",
                     "grant_type": "access_token",
-                    "lang": "zh_CN",
-                    "os_version": "1.5.0",
-                    "source": "com.xiaomi.hm.health",
-                    "third_name": "email",
+                    "lang": "zh",
+                    "source": "com.xiaomi.hm.health:6.7.1:50703",
+                    "os_version": "v0.7.13",
+                    "third_name": "huami",
                 }
             r2 = requests.post(url=url2, data=data2, headers=headers).json()
             login_token = r2["token_info"]["login_token"]
@@ -204,7 +204,7 @@ class MiMotion():
                 findstep = re.compile(r".*?ttl%5C%22%3A(.*?)%2C%5C%22dis.*?")
                 data_json = re.sub(finddate.findall(data_json)[0], today, str(data_json))
                 data_json = re.sub(findstep.findall(data_json)[0], step, str(data_json))
-                url = f"https://api-mifit-cn.huami.com/v1/data/band_data.json?&t={t}"
+                url = f"https://api-mifit-cn..com/v1/data/band_data.json?&t={t}"
                 headers = {"apptoken": app_token, "Content-Type": "application/x-www-form-urlencoded"}
                 time_2hour =int(time.time()-7200)
                 data = f"userid={userid}&last_sync_data_time={time_2hour}&device_type=0&last_deviceid=C4BDB6FFFE2BCA4C&data_json={data_json}"
